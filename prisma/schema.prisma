@@ -33,9 +33,12 @@ model Note {
   searchVector String?
 
   user User @relation(fields: [userId], references: [id])
+  tags Tag[] @relation("NoteTags")
 }
 
 model Tag {
   id Int @id @default(autoincrement())
   name String @unique
+
+  note Note[] @relation("NoteTags") // relacion muchos a muchos
 }
