@@ -12,7 +12,14 @@ export class NotePrismaRepository implements NoteRepositoryPort {
     }
 
     findNoteById(noteId: number): Promise<Note | null> {
-        throw new Error("Method not implemented.");
+        const note = this.prismaService.note.findUnique({
+            where: { id: +noteId },
+            include: { tags: true },
+        })
+
+        if(!note) return null;
+
+        return note;
     }
 
     updateNote(note: any): Promise<Note> {
@@ -27,7 +34,7 @@ export class NotePrismaRepository implements NoteRepositoryPort {
                 content,
                 title,
                 tags: {
-                    connect: tags.map(tagId => ({ id: tagId.id })), //connect es útil cuando las entidades relacionadas (como etiquetas o usuarios) ya existen en la base de datos y solo deseas relacionarlas con la nueva entidad (nota en este caso).
+                    connect: tags?.map(tagId => ({ id: tagId.id })), //connect es útil cuando las entidades relacionadas (como etiquetas o usuarios) ya existen en la base de datos y solo deseas relacionarlas con la nueva entidad (nota en este caso).
                 },
             },
             include: {

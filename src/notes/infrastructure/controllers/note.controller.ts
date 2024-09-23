@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { NoteService } from 'src/notes/application/services/note.service';
 import { CreateNoteDto } from '../dto/create-note.dto';
 import { Note } from 'src/notes/domain/note.interface';
@@ -19,6 +19,11 @@ export class NoteController {
         console.log('Note: ', { dto: createNoteDto, parsed: note })
 
         return this.noteService.createNote(note)
+    }
+
+    @Get(':id')
+    async findNoteById(@Param('id') noteId: number) {
+        return this.noteService.findNoteById(noteId);
     }
 
 }

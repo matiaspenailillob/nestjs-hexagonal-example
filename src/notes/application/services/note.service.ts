@@ -20,4 +20,8 @@ export class NoteService {
         return this.noteRepository.findAllNotesByUser(userId);
     }
 
+    async findNoteById(noteId: number): Promise<Note> {
+        return this.noteRepository.findNoteById(noteId);
+    }
+
 }
