@@ -16,8 +16,8 @@ export class NoteService {
         return this.noteRepository.createNote(note);
     }
 
-    async getAllNotes(): Promise<Note[]> {
-        return this.noteRepository.findAll();
+    async getAllNotesByUser(userId: number): Promise<Note[]> {
+        return this.noteRepository.findAllNotesByUser(userId);
     }
 
 }

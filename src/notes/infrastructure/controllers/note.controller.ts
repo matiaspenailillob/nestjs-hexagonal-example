@@ -13,8 +13,8 @@ export class NoteController {
 
     @Post()
     async createNote(@Body() createNoteDto: CreateNoteDto) {
-        const { title, content } = createNoteDto;
-        const note: Note = { title, content }
+        const { title, content, userId, tags = [] } = createNoteDto;
+        const note: Note = { title, content, userId, tags }
 
         console.log('Note: ', { dto: createNoteDto, parsed: note })
 

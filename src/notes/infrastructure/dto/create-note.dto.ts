@@ -6,4 +6,6 @@ we recommend using classes here. Why? Classes are part of the JavaScript ES6 sta
 export class CreateNoteDto {
     title: string;
     content: string;
+    tags?: number[];
+    userId: number;
 }

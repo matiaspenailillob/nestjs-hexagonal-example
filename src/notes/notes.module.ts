@@ -3,10 +3,12 @@ import { NoteController } from './infrastructure/controllers/note.controller';
 import { NoteService } from './application/services/note.service';
 import { NotePrismaRepository } from './infrastructure/repositories/note.prisma.repository';
 import { NOTE_REPOSITORY } from './domain/ports/note.port';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Module({
   controllers: [NoteController],
   providers: [
+    PrismaService,
     NoteService,
     NotePrismaRepository,
     /* 
