@@ -14,7 +14,7 @@ export class UserController {
     async createUser(@Body() createUserDto: CreateUserDto) {
 
         const { username, password, email } = createUserDto;
-        const user: User = { username, password, email };
+        const user: User = { username, passwordHash: password, email };
 
         return this.userService.createUser(user);
     }
