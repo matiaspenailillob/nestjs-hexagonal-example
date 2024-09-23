@@ -22,8 +22,53 @@ export class NotePrismaRepository implements NoteRepositoryPort {
         return note;
     }
 
-    updateNote(note: any): Promise<Note> {
-        throw new Error("Method not implemented.");
+    async updateNote(note: Note): Promise<Note> {
+
+        const { id, title, content, tags } = note;
+
+        // Iniciamos la transaccion
+        // Prisma ejecuta todas las operaciones dentro de este bloque de forma atómica. Si cualquiera de las operaciones falla, toda la transacción se revierte.
+        const result = this.prismaService.$transaction(async (prisma) => {
+
+            // Validar si la nota existe:
+            const existingNote = await prisma.note.findUnique({
+                where: { id }
+            });
+
+            // Si la nota no existe, lanzamos un error, lo que automáticamente cancelará la transacción
+            if(!existingNote) throw new Error('Note not found');
+
+            // Actualizar la nota:
+            const updatedNote = await prisma.note.update({
+                where: { id },
+                data: {
+                    title,
+                    content,
+                }
+            });
+
+            // Si se pasaron los tags, actualizamos las relaciones de Tags
+            if(tags && tags.length > 0) {
+                await prisma.note.update({
+                    where: { id },
+                    data: {
+                        tags: {
+                            set: tags.map((tagId) => ({ id: tagId }))
+                        }
+                    }
+                })
+            }
+
+            // Retornar la nota actualizada
+            const finalNote = await prisma.note.findUnique({
+                where: { id },
+                include: { tags: true }
+            })
+
+            return finalNote;
+        });
+
+        return result;
     }
 
     async createNote(note: Note): Promise<Note> {

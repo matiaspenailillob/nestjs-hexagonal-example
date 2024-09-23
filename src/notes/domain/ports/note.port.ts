@@ -8,6 +8,6 @@ export const NOTE_REPOSITORY = 'NOTE_REPOSITORY'
 export interface NoteRepositoryPort {
     createNote(note: Note): Promise<Note>;
     findNoteById(noteId: number): Promise<Note | null>;
-    updateNote(note): Promise<Note>;
+    updateNote(note: Note): Promise<Note>;
     findAllNotesByUser(userId: number): Promise<Note[]>
 }

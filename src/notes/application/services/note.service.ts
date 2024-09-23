@@ -11,7 +11,6 @@ export class NoteService {
 
     }
 
-
     async createNote(note: Note): Promise<Note> {
         return this.noteRepository.createNote(note);
     }
@@ -22,6 +21,10 @@ export class NoteService {
 
     async findNoteById(noteId: number): Promise<Note> {
         return this.noteRepository.findNoteById(noteId);
+    }
+
+    async updateNote(note: Note): Promise<Note> {
+        return this.noteRepository.updateNote(note);
     }
 
 }
