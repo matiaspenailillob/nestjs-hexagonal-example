@@ -26,4 +26,9 @@ export class NoteController {
         return this.noteService.findNoteById(noteId);
     }
 
+    @Get('user/:userId')
+    async getAllNotesByUser(@Param('id') userId: number) {
+        return this.noteService.getAllNotesByUser(userId);
+    }
+
 }

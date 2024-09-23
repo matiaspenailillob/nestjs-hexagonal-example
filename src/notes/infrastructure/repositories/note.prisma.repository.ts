@@ -45,8 +45,13 @@ export class NotePrismaRepository implements NoteRepositoryPort {
         return noteCreated;
     }
 
-    findAllNotesByUser(): Promise<Note[]> {
-        throw new Error("Method not implemented.");
+    async findAllNotesByUser(userId): Promise<Note[]> {
+        const notes = await this.prismaService.note.findMany({
+            where: { userId },
+            include: { tags: true }
+        })
+
+        return notes;
     }
 
 }
