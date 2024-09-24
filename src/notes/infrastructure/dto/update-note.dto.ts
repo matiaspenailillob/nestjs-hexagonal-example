@@ -1,12 +1,12 @@
-import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsArray, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class UpdateNoteDto {
 
-    @IsNotEmpty({ message: 'El título es obligatorio' })
+    @IsOptional({ message: 'El título es obligatorio' })
     @IsString({ message: 'El título debe ser un string' })
     title: string;
 
-    @IsNotEmpty({ message: 'El contenido es obligatorio' })
+    @IsOptional({ message: 'El contenido es obligatorio' })
     @IsString({ message: 'El contenido debe ser un string' })
     content: string;
 
