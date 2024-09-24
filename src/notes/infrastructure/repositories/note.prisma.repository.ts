@@ -79,7 +79,7 @@ export class NotePrismaRepository implements NoteRepositoryPort {
                 content,
                 title,
                 tags: {
-                    connect: tags?.map(tagId => ({ id: tagId.id })), //connect es útil cuando las entidades relacionadas (como etiquetas o usuarios) ya existen en la base de datos y solo deseas relacionarlas con la nueva entidad (nota en este caso).
+                    connect: tags?.map(tagId => ({ id: tagId })), //connect es útil cuando las entidades relacionadas (como etiquetas o usuarios) ya existen en la base de datos y solo deseas relacionarlas con la nueva entidad (nota en este caso).
                 },
             },
             include: {
