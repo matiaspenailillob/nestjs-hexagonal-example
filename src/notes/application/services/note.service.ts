@@ -11,13 +11,20 @@ export class NoteService {
 
     }
 
-
     async createNote(note: Note): Promise<Note> {
         return this.noteRepository.createNote(note);
     }
 
-    async getAllNotes(): Promise<Note[]> {
-        return this.noteRepository.findAll();
+    async getAllNotesByUser(userId: number): Promise<Note[]> {
+        return this.noteRepository.findAllNotesByUser(userId);
+    }
+
+    async findNoteById(noteId: number): Promise<Note> {
+        return this.noteRepository.findNoteById(noteId);
+    }
+
+    async updateNote(note: Note): Promise<Note> {
+        return this.noteRepository.updateNote(note);
     }
 
 }
