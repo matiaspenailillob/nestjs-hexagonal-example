@@ -19,5 +19,9 @@ export class UserService {
         return this.userRepositoryPort.findAll();
     }
 
+    async findByUsername(username: string): Promise<User | null> {
+        return this.userRepositoryPort.findByUsername(username)
+    }
+
 
 }

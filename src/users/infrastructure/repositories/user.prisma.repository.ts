@@ -25,4 +25,13 @@ export class UserPrismaRepository implements UserRepositoryPort {
         return users;
     }
 
+    async findByUsername(username: string): Promise<User | null> {
+        const userFounded = await this.prisma.user.findFirst({
+            where: { username }
+        })
+
+        console.log('user founded', userFounded);
+        return userFounded;
+    }
+
 }

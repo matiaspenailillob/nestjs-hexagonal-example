@@ -5,4 +5,5 @@ export const USER_REPOSITORY = 'USER_REPOSITORY';
 export interface UserRepositoryPort {
     createUser(user: User): Promise<User>;
     findAll(): Promise<User[]>;
+    findByUsername(username: string): Promise<User | null>;
 }
