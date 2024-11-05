@@ -1,8 +1,9 @@
-import { Body, Controller, Get, InternalServerErrorException, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, InternalServerErrorException, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { NoteService } from 'src/notes/application/services/note.service';
 import { CreateNoteDto } from '../dto/create-note.dto';
 import { Note } from 'src/notes/domain/note.interface';
 import { UpdateNoteDto } from '../dto/update-note.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('notes')
 export class NoteController {
@@ -12,6 +13,7 @@ export class NoteController {
 
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Post()
     async createNote(@Body() createNoteDto: CreateNoteDto) {
         const { title, content, userId, tags = [] } = createNoteDto;
@@ -27,7 +29,8 @@ export class NoteController {
         return this.noteService.findNoteById(noteId);
     }
 
-    @Get('user/:userId')
+    @UseGuards(AuthGuard('jwt'))
+    @Get('user/:userId')    
     async getAllNotesByUser(@Param('id') userId: number) {
         return this.noteService.getAllNotesByUser(userId);
     }
