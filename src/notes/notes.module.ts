@@ -10,7 +10,6 @@ import { PrismaService } from 'src/prisma/prisma.service';
   providers: [
     PrismaService,
     NoteService,
-    NotePrismaRepository,
     /* 
       Proveedores: En el módulo (NoteModule), indicamos que cuando NestJS vea el token NOTE_REPOSITORY,
       debe inyectar la clase PrismaUserRepository. Esto permite desacoplar la lógica del dominio de la implementación concreta de la persistencia.
