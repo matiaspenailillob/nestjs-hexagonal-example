@@ -5,10 +5,14 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
 import { AuthService } from './services/auth.service';
+import { AuthController } from './infrastructure/controllers/auth.controller';
+import { UsersModule } from 'src/users/users.module';
 
 @Module({
+    controllers: [AuthController],
     imports: [
         PassportModule,
+        UsersModule,
         JwtModule.registerAsync({
             imports: [ConfigModule],
             inject: [ConfigService], // permite acceder a las variables de entorno.
@@ -21,7 +25,7 @@ import { AuthService } from './services/auth.service';
     providers: [
         HashService,
         JwtStrategy,
-        AuthService
+        AuthService,
     ],
     exports: [ 
         AuthService
