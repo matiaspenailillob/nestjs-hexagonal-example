@@ -1,6 +1,6 @@
 import { User } from 'src/users/domain/entities/user.interface';
 import { UserRepositoryPort } from '../../domain/ports/user.port';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 
@@ -13,11 +13,21 @@ export class UserPrismaRepository implements UserRepositoryPort {
     }
 
     async createUser(user: User): Promise<User> {
-        const userCreated = await this.prisma.user.create({
-            data: user
-        });
+        try {
+            const userCreated = await this.prisma.user.create({
+                data: user
+            });
+    
+            return userCreated;
 
-        return userCreated;
+        } catch (error) {
+            console.log('Error to create', error)
+            if(error.code === 'P2002'){
+                throw new BadRequestException('User already exist')
+            }
+            
+            throw new InternalServerErrorException('Error to create user')
+        }
     }
 
     async findAll(): Promise<User[]> {
