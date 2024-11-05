@@ -3,6 +3,7 @@ import { HashService } from './infrastructure/services/hash.service';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
 
 @Module({
     imports: [
@@ -18,6 +19,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     ],
     providers: [
         HashService,
+        JwtStrategy
     ],
     exports: [ 
         HashService
