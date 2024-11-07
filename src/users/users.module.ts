@@ -4,6 +4,9 @@ import { UserPrismaRepository } from './infrastructure/repositories/user.prisma.
 import { UserController } from './infrastructure/controllers/user.controller';
 import { UserService } from './application/services/user.service';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { User, UserSchema } from './domain/entities/user.mongodb.schema';
+import { UserMongoDbRepository } from './infrastructure/repositories/user.mongodb.repository';
 
 
 @Module({
@@ -13,8 +16,11 @@ import { PrismaService } from 'src/prisma/prisma.service';
         UserService,
         {
             provide: USER_REPOSITORY,
-            useClass: UserPrismaRepository
+            useClass: UserMongoDbRepository //UserPrismaRepository
         }
+    ],
+    imports: [
+        MongooseModule.forFeature([{ name: User.name, schema: UserSchema }])
     ]
 })
 export class UsersModule {}
