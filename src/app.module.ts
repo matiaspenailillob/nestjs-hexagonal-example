@@ -4,10 +4,10 @@ import { AppService } from './app.service';
 import { NotesModule } from './notes/notes.module';
 import { UsersModule } from './users/users.module';
 import { PrismaService } from './prisma/prisma.service';
-import { MongooseModule } from '@nestjs/mongoose';
+import { MongodbModule } from './mongodb/mongodb.module';
 
 @Module({
-  imports: [NotesModule, UsersModule, MongooseModule.forRoot(process.env.MONGO_URL)],
+  imports: [NotesModule, UsersModule, MongodbModule],
   controllers: [AppController],
   providers: [PrismaService, AppService],
   exports: [PrismaService]
